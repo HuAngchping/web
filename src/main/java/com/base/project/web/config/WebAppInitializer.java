@@ -1,4 +1,4 @@
-package com.base.project.config;
+package com.base.project.web.config;
 
 import java.util.Set;
 
@@ -26,8 +26,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 	private WebApplicationContext createRootContext(ServletContext servletContext) {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		// rootContext.register(MongoDBConfig.class, RepositoryConfig.class,
-		// ServiceConfig.class);
+		rootContext.register(MySQLJDBConfiguration.class);
 		rootContext.refresh();
 
 		servletContext.addListener(new ContextLoaderListener(rootContext));

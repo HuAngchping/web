@@ -1,4 +1,4 @@
-package com.base.project.config;
+package com.base.project.web.config;
 
 import java.util.Locale;
 
