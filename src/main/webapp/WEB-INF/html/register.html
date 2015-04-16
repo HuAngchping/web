@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link type="text/css" rel="stylesheet" th:href="@{/resources/css/main.css}"></link>
+    <script type="text/javascript" th:href="@{/resources/js/main.js}"></script>
+
+</head>
+<body>
+<form action="#" th:action="@{/register}" th:object="${customerRegister}" method="POST">
+    <table>
+        <tr class="style-font">
+            <td>Sign In</td>
+        </tr>
+        <tr>
+            <td>用户名：<input type="text" th:field="*{username}"/></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+        </tr>
+        <tr>
+            <td>密码：<input type="password" th:field="*{password}"/></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+        </tr>
+        <tr>
+            <td>邮箱：<input type="email" th:field="*{email}"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="register" th:value="#{label.register}"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

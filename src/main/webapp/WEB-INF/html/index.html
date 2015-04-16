@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link type="text/css" rel="stylesheet" th:href="@{/resources/css/main.css}"></link>
+    <script type="text/javascript" th:href="@{/resources/js/main.js}"></script>
+</head>
+<body>
+    <a th:href="@{/web_reg?login=1}">登录</a> <a th:href="@{/web_reg?login=0}">注册</a>
+</body>
+</html>

@@ -1,18 +1,11 @@
 package com.base.project.web.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+public class CustomerRegister {
 
-public class User {
-
-	@NotNull
-	@Size(min = 3, max = 6)
 	private String username;
 
-	@NotNull
 	private String password;
 
-	@NotNull
 	private String email;
 
 	public String getUsername() {

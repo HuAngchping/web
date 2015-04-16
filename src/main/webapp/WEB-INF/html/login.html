@@ -8,7 +8,7 @@
     <script type="text/javascript" th:href="@{/resources/js/main.js}"></script>
 </head>
 <body>
-    <form action="#" th:action="@{/login}" th:object="${user}" method="POST">
+    <form action="#" th:action="@{/login}" th:object="${customerLogin}" method="POST">
     	<table>
     		<tr class="style-font">
     			<td>登录</td>
@@ -22,11 +22,7 @@
     			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
     		</tr>
     		<tr>
-    			<td>邮箱：<input type="email" th:field="*{email}"/></td>
-    			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
-    		</tr>
-    		<tr>
-    			<td><input type="submit" th:value="#{label.submit}"/></td>
+    			<td><input type="submit" name="login" th:value="#{label.login}"/></td>
     		</tr>
     	</table>
     </form>
