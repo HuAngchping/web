@@ -1,26 +1,28 @@
 package com.base.project.web.service;
 
-import com.base.project.web.model.CustomerRegister;
+import com.base.project.web.entities.Customer;
+import com.base.project.web.domain.CustomerRegister;
 import com.base.project.web.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+import java.util.Date;
+
+/**
+ * Created by huang on 4/23/15.
+ */
+@Component
 public class CustomerService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
-    public void login(String username, String password) {
-
-    }
-
-    public void signup(String username, String password, String email) {
-        System.out.println(username + ", " + password + ", " + email + ".");
-        CustomerRegister customer = new CustomerRegister();
-        customer.setUsername(username);
-        customer.setPassword(password);
-        customer.setEmail(email);
+    public void createAccount(CustomerRegister register) {
+        Customer customer = new Customer();
+        customer.setUsername(register.getUsername());
+        customer.setPassword(register.getPassword());
+        customer.setEmail(register.getEmail());
+        customer.setCreate_at(new Date());
         customerRepository.save(customer);
     }
 }

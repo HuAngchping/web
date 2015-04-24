@@ -1,13 +1,14 @@
 package com.base.project.web.controllers;
 
-import com.base.project.web.model.CustomerLogin;
-import com.base.project.web.model.CustomerRegister;
-import com.base.project.web.model.validators.CustomerLoginValidator;
-import com.base.project.web.model.validators.CustomerRegisterValidator;
+import com.base.project.web.domain.CustomerLogin;
+import com.base.project.web.domain.CustomerRegister;
+import com.base.project.web.domain.validators.CustomerLoginValidator;
+import com.base.project.web.domain.validators.CustomerRegisterValidator;
 import com.base.project.web.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -21,12 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomerManagementController {
 
     @Autowired
+    private CustomerService customerService;
+
+    @Autowired
     private CustomerRegisterValidator customerRegisterValidator;
 
     @Autowired
     private CustomerLoginValidator customerLoginValidator;
-    @Autowired
-    private CustomerService userService;
 
     @InitBinder(value = "customerLogin")
     private void initCustomerLoginBinder(WebDataBinder binder) {
@@ -44,9 +46,8 @@ public class CustomerManagementController {
     }
 
     @RequestMapping("/web_reg")
-    public String weg_reg(@RequestParam(value = "login") String loginflag, CustomerRegister customerRegister, CustomerLogin customerLogin, HttpServletRequest request) {
-        if (loginflag.equals("1")) {
-            Cookie[] cookies = request.getCookies();
+    public String weg_reg(@RequestParam(value = "login") String login_flag, CustomerRegister customerRegister, CustomerLogin customerLogin, Model model, HttpServletRequest request) {
+        if (login_flag.equals("1")) {
             return "login";
         }
 
@@ -58,15 +59,14 @@ public class CustomerManagementController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        userService.login(customerLogin.getUsername(), customerLogin.getPassword());
-        Cookie cookie = new Cookie("1", "2");
+        Cookie cookie = new Cookie("ticket", "ticket_localhost");
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         cookie.setDomain("localhost");
         cookie.setMaxAge(300);
         response.addCookie(cookie);
         model.addAttribute("customerLogin", customerLogin);
-        return "success_login";
+        return "redirect:" + customerLogin.getUrl();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -74,19 +74,9 @@ public class CustomerManagementController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.signup(customerRegister.getUsername(), customerRegister.getPassword(), customerRegister.getEmail());
+        customerService.createAccount(customerRegister);
         model.addAttribute("customerRegister", customerRegister);
         return "success_register";
-    }
-
-    @RequestMapping(value = "/rest", method = RequestMethod.GET)
-    @ResponseBody
-    public CustomerRegister rest() {
-        CustomerRegister u = new CustomerRegister();
-        u.setUsername("1122");
-        u.setPassword("3344");
-        u.setEmail("5566@ask.me");
-        return u;
     }
 
 }

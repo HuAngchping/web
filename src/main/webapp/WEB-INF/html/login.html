@@ -9,6 +9,7 @@
 </head>
 <body>
 <form action="#" th:action="@{/login}" th:object="${customerLogin}" method="POST">
+    <input type="hidden" th:field="*{url}" th:value="${url}"/>
     <table>
         <tr class="style-font">
             <td>登录</td>

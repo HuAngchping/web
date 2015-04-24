@@ -1,4 +1,4 @@
-package com.base.project.web.model;
+package com.base.project.web.domain;
 
 public class CustomerRegister {
 

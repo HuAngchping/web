@@ -1,6 +1,6 @@
-package com.base.project.web.model.validators;
+package com.base.project.web.domain.validators;
 
-import com.base.project.web.model.CustomerRegister;
+import com.base.project.web.domain.CustomerRegister;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

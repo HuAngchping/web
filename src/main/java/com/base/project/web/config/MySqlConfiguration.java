@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,7 +26,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("com.base.project.web.repositories")
-public class MySQLHibernateConfiguration {
+public class MySqlConfiguration {
 
     @Autowired
     private Environment env;
@@ -45,16 +46,16 @@ public class MySQLHibernateConfiguration {
     @Description("jpa entity config")
     public EntityManagerFactory entityManagerFactory() {
 
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        factory.setDataSource(dataSource());
-        factory.setPackagesToScan("com.base.project.web.entities");
-
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setGenerateDdl(false);
-        jpaVendorAdapter.setShowSql(false);
-        jpaVendorAdapter.setDatabasePlatform(env.getProperty("hibernate.dialect"));
+        jpaVendorAdapter.setShowSql(true);
+        jpaVendorAdapter.setDatabase(Database.MYSQL);
+
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 
         factory.setJpaVendorAdapter(jpaVendorAdapter);
+        factory.setPackagesToScan("com.base.project.web.entities");
+        factory.setDataSource(dataSource());
         factory.afterPropertiesSet();
 
         return factory.getObject();
