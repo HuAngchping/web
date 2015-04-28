@@ -11,6 +11,8 @@ public class CustomerLogin {
 
     private String url;
 
+    private String nonce;
+
     public String getUsername() {
         return username;
     }
@@ -33,5 +35,13 @@ public class CustomerLogin {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getNonce() {
+        return nonce;
+    }
+
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
     }
 }

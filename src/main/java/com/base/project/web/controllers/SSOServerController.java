@@ -2,17 +2,13 @@ package com.base.project.web.controllers;
 
 import com.base.project.web.domain.CustomerLogin;
 import com.base.project.web.domain.CustomerRegister;
-import com.base.project.web.domain.validators.CustomerLoginValidator;
-import com.base.project.web.domain.validators.CustomerRegisterValidator;
-import com.base.project.web.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.base.project.web.utils.MyUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +30,8 @@ public class SSOServerController {
             }
         }
         if (StringUtils.isEmpty(ticket)) {
+            String nonce = MyUtils.getNonceTicket();
+            customerLogin.setNonce(nonce);
             customerLogin.setUrl(url);
             return "login";
         }

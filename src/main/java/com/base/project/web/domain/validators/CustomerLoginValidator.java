@@ -1,7 +1,7 @@
 package com.base.project.web.domain.validators;
 
-import com.base.project.web.entities.Customer;
 import com.base.project.web.domain.CustomerLogin;
+import com.base.project.web.entities.Customer;
 import com.base.project.web.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

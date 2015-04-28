@@ -5,10 +5,10 @@ import com.base.project.web.domain.CustomerRegister;
 import com.base.project.web.domain.validators.CustomerLoginValidator;
 import com.base.project.web.domain.validators.CustomerRegisterValidator;
 import com.base.project.web.service.CustomerService;
+import com.base.project.web.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -48,6 +48,10 @@ public class CustomerManagementController {
     @RequestMapping("/web_reg")
     public String weg_reg(@RequestParam(value = "login") String login_flag, CustomerRegister customerRegister, CustomerLogin customerLogin, Model model, HttpServletRequest request) {
         if (login_flag.equals("1")) {
+            String nonce = MyUtils.getNonceTicket();
+            String url = "/";
+            customerLogin.setNonce(nonce);
+            customerLogin.setUrl(url);
             return "login";
         }
 
